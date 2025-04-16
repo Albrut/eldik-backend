@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Table(name = "incident_request")
-public class IncidentReqeust {
+public class IncidentRequest {
     @Id
     private UUID id;
     private String usedSources;
@@ -26,7 +26,7 @@ public class IncidentReqeust {
 
     @Override
     public String toString() {
-        return "IncidentReqeust{" +
+        return "IncidentRequest{" +
                 "id=" + id +
                 ", usedSources='" + usedSources + '\'' +
                 ", incidentDate=" + incidentDate +
