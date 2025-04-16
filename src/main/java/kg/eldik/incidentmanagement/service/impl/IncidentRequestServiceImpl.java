@@ -6,6 +6,8 @@ import kg.eldik.incidentmanagement.repository.IncidentRequestRepository;
 import kg.eldik.incidentmanagement.service.IncidentRequestService;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -28,6 +30,42 @@ public class IncidentRequestServiceImpl implements IncidentRequestService {
 
     @Override
     public IncidentRequest updateIncidentRequest(UpdateIncidentRequest updateRequest) {
-        return null;
+        IncidentRequest incidentRequest = incidentRequestRepository.findById(updateRequest.getId()).orElse(null);
+
+        applyUpdates(incidentRequest, updateRequest);
+
+        return incidentRequestRepository.save(incidentRequest);
     }
+
+
+    public void applyUpdates(IncidentRequest entity, UpdateIncidentRequest request) {
+        if (request.getUsed_sources() != null) {
+            entity.setUsed_sources(request.getUsed_sources());
+        }
+        if (request.getIncident_date() != null) {
+            entity.setIncident_date(request.getIncident_date());
+        }
+        if (request.getIncident_description() != null) {
+            entity.setIncident_description(request.getIncident_description());
+        }
+        if (request.getImportance() != null) {
+            entity.setImportance(request.getImportance());
+        }
+        if (request.getWorker_id() != null) {
+            entity.setWorker_id(request.getWorker_id());
+        }
+        if (request.getStatus() != null) {
+            entity.setStatus(request.getStatus());
+        }
+        if (request.getClose_date() != null) {
+            entity.setClose_date(request.getClose_date());
+        }
+        if (request.getSolution() != null) {
+            entity.setSolution(request.getSolution());
+        }
+        if (request.getNote() != null) {
+            entity.setNote(request.getNote());
+        }
+    }
+
 }

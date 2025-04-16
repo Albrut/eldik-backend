@@ -13,13 +13,13 @@ import java.util.UUID;
 public class IncidentRequest {
     @Id
     private UUID id;
-    private String usedSources;
-    private Date incidentDate;
-    private String incidentDescription;
+    private String used_sources;
+    private Date incident_date;
+    private String incident_description;
     private ImportanceEnum importance;
     private UUID worker_id;
     private StatusEnum status;
-    private Date closeDate;
+    private Date close_date;
     private String solution;
     private String note;
 
@@ -27,13 +27,13 @@ public class IncidentRequest {
     public String toString() {
         return "IncidentRequest{" +
                 "id=" + id +
-                ", usedSources='" + usedSources + '\'' +
-                ", incidentDate=" + incidentDate +
-                ", incidentDescription='" + incidentDescription + '\'' +
+                ", used_sources='" + used_sources + '\'' +
+                ", incident_date=" + incident_date +
+                ", incident_description='" + incident_description + '\'' +
                 ", importance=" + importance +
-                ", system_admin_id=" + worker_id+
+                ", worker_id=" + worker_id +
                 ", status=" + status +
-                ", closeDate=" + closeDate +
+                ", close_date=" + close_date +
                 ", solution='" + solution + '\'' +
                 ", note='" + note + '\'' +
                 '}';
@@ -47,28 +47,28 @@ public class IncidentRequest {
         this.id = id;
     }
 
-    public String getUsedSources() {
-        return usedSources;
+    public String getUsed_sources() {
+        return used_sources;
     }
 
-    public void setUsedSources(String usedSources) {
-        this.usedSources = usedSources;
+    public void setUsed_sources(String used_sources) {
+        this.used_sources = used_sources;
     }
 
-    public Date getIncidentDate() {
-        return incidentDate;
+    public Date getIncident_date() {
+        return incident_date;
     }
 
-    public void setIncidentDate(Date incidentDate) {
-        this.incidentDate = incidentDate;
+    public void setIncident_date(Date incident_date) {
+        this.incident_date = incident_date;
     }
 
-    public String getIncidentDescription() {
-        return incidentDescription;
+    public String getIncident_description() {
+        return incident_description;
     }
 
-    public void setIncidentDescription(String incidentDescription) {
-        this.incidentDescription = incidentDescription;
+    public void setIncident_description(String incident_description) {
+        this.incident_description = incident_description;
     }
 
     public ImportanceEnum getImportance() {
@@ -87,8 +87,6 @@ public class IncidentRequest {
         this.worker_id = worker_id;
     }
 
-
-
     public StatusEnum getStatus() {
         return status;
     }
@@ -97,12 +95,12 @@ public class IncidentRequest {
         this.status = status;
     }
 
-    public Date getCloseDate() {
-        return closeDate;
+    public Date getClose_date() {
+        return close_date;
     }
 
-    public void setCloseDate(Date closeDate) {
-        this.closeDate = closeDate;
+    public void setClose_date(Date close_date) {
+        this.close_date = close_date;
     }
 
     public String getSolution() {
