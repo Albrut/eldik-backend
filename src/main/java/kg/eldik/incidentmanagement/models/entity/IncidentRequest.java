@@ -17,8 +17,7 @@ public class IncidentRequest {
     private Date incidentDate;
     private String incidentDescription;
     private ImportanceEnum importance;
-    private UUID system_admin_id;
-    private SystemAdmin worker;
+    private UUID worker_id;
     private StatusEnum status;
     private Date closeDate;
     private String solution;
@@ -32,8 +31,7 @@ public class IncidentRequest {
                 ", incidentDate=" + incidentDate +
                 ", incidentDescription='" + incidentDescription + '\'' +
                 ", importance=" + importance +
-                ", system_admin_id=" + system_admin_id +
-                ", worker=" + worker +
+                ", system_admin_id=" + worker_id+
                 ", status=" + status +
                 ", closeDate=" + closeDate +
                 ", solution='" + solution + '\'' +
@@ -81,21 +79,15 @@ public class IncidentRequest {
         this.importance = importance;
     }
 
-    public UUID getSystem_admin_id() {
-        return system_admin_id;
+    public UUID getWorker_id() {
+        return worker_id;
     }
 
-    public void setSystem_admin_id(UUID system_admin_id) {
-        this.system_admin_id = system_admin_id;
+    public void setWorker_id(UUID worker_id) {
+        this.worker_id = worker_id;
     }
 
-    public SystemAdmin getWorker() {
-        return worker;
-    }
 
-    public void setWorker(SystemAdmin worker) {
-        this.worker = worker;
-    }
 
     public StatusEnum getStatus() {
         return status;

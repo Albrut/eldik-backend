@@ -7,5 +7,4 @@ import java.util.List;
 import java.util.UUID;
 
 public interface IncidentRequestRepository extends CrudRepository<IncidentRequest, UUID> {
-    List<IncidentRequest> findAllIncidentRequests();
 }
