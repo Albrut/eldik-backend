@@ -7,5 +7,4 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.UUID;
 
 public interface IncidentRequestRepository extends CrudRepository<IncidentRequest, UUID> {
-    IncidentRequest createIncidentRequestSQL(IncidentRequestCreate incidentRequestCreate);
 }

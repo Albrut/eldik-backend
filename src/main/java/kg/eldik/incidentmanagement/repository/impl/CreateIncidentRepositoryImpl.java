@@ -23,7 +23,7 @@ public class CreateIncidentRepositoryImpl implements CreateIncidentRepository {
     public IncidentRequest createIncidentRequestSQL(IncidentRequestCreate createDto) {
         String sql = "INSERT INTO incident_request " +
                 "(id, used_sources, incident_date, incident_description, importance, worker_id, status, close_date, solution, note) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING *";
+                "VALUES (?, ?, ?, ?, ?::importance_enum, ?, ?::status_enum, ?, ?, ?) RETURNING *";
 
         UUID id = UUID.randomUUID();
 
@@ -32,9 +32,9 @@ public class CreateIncidentRepositoryImpl implements CreateIncidentRepository {
                 createDto.getUsed_sources(),
                 createDto.getIncident_date(),
                 createDto.getIncident_description(),
-                createDto.getImportance().name(),
+                createDto.getImportance().name(),  // This will be cast to importance_enum
                 createDto.getWorker_id(),
-                createDto.getStatus().name(),
+                createDto.getStatus().name(),     // This will be cast to status_enum
                 createDto.getClose_date(),
                 createDto.getSolution(),
                 createDto.getNote()
