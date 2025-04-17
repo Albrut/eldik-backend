@@ -1,9 +1,9 @@
 package kg.eldik.incidentmanagement.repository;
 
 import kg.eldik.incidentmanagement.models.entity.SystemAdmin;
-import org.springframework.data.repository.CrudRepository;
+import kg.eldik.incidentmanagement.payload.request.SystemAdminCreate;
+import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
-public interface SystemAdminRepository extends CrudRepository<SystemAdmin, UUID> {
+public interface SystemAdminRepository {
+    SystemAdmin createSystemAdminSQL(SystemAdminCreate systemAdminCreate);
 }

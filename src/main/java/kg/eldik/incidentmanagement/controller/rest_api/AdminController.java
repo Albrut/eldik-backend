@@ -3,6 +3,7 @@ package kg.eldik.incidentmanagement.controller.rest_api;
 import kg.eldik.incidentmanagement.models.entity.IncidentRequest;
 import kg.eldik.incidentmanagement.models.entity.SystemAdmin;
 import kg.eldik.incidentmanagement.payload.request.IncidentRequestCreate;
+import kg.eldik.incidentmanagement.payload.request.SystemAdminCreate;
 import kg.eldik.incidentmanagement.payload.request.UpdateIncidentRequest;
 import kg.eldik.incidentmanagement.repository.CreateIncidentRepository;
 import kg.eldik.incidentmanagement.service.IncidentRequestService;
@@ -53,7 +54,7 @@ public class AdminController {
     }
 
     @PostMapping("/create/system_admin")
-    public ResponseEntity<SystemAdmin> createSystemAdmin(@RequestBody SystemAdmin systemAdmin) {
-        return ResponseEntity.ok(systemAdminService.createSystemAdmin(systemAdmin));
+    public ResponseEntity<SystemAdmin> createSystemAdmin(@RequestBody SystemAdminCreate systemAdminCreate) {
+        return ResponseEntity.ok(systemAdminService.createSystemAdmin(systemAdminCreate));
     }
 }
