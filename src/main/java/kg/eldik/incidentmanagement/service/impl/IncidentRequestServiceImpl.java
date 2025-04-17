@@ -7,9 +7,8 @@ import kg.eldik.incidentmanagement.payload.request.UpdateIncidentRequest;
 import kg.eldik.incidentmanagement.repository.IncidentRequestRepository;
 import kg.eldik.incidentmanagement.service.IncidentRequestService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
-import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -47,6 +46,7 @@ public class IncidentRequestServiceImpl implements IncidentRequestService {
     }
 
     @Override
+    @Transactional
     public IncidentRequest createIncident(IncidentRequestCreate incidentRequestCreate) {
         IncidentRequest incidentRequest = new IncidentRequest();
 

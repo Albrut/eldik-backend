@@ -4,6 +4,7 @@ package kg.eldik.incidentmanagement.models.entity;//package kg.eldik.incidentman
 import kg.eldik.incidentmanagement.models.enums.ImportanceEnum;
 import kg.eldik.incidentmanagement.models.enums.StatusEnum;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Date;
@@ -16,6 +17,7 @@ public class IncidentRequest {
     private String used_sources;
     private Date incident_date;
     private String incident_description;
+    @Column("importance")
     private ImportanceEnum importance;
     private UUID worker_id;
     private StatusEnum status;

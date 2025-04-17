@@ -1,12 +1,9 @@
 package kg.eldik.incidentmanagement.models.entity;//package kg.eldik.incidentmanagement.models.entity;
 
-import kg.eldik.incidentmanagement.models.enums.ImportanceEnum;
 import kg.eldik.incidentmanagement.models.enums.RankEnum;
-import kg.eldik.incidentmanagement.models.enums.StatusEnum;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.Date;
 import java.util.UUID;
 
 
