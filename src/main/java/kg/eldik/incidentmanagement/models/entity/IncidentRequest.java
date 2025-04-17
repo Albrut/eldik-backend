@@ -10,32 +10,30 @@ import java.util.Date;
 import java.util.UUID;
 
 @Table(name = "incident_request")
-public class IncidentReqeust {
+public class IncidentRequest {
     @Id
     private UUID id;
-    private String usedSources;
-    private Date incidentDate;
-    private String incidentDescription;
+    private String used_sources;
+    private Date incident_date;
+    private String incident_description;
     private ImportanceEnum importance;
-    private UUID system_admin_id;
-    private SystemAdmin worker;
+    private UUID worker_id;
     private StatusEnum status;
-    private Date closeDate;
+    private Date close_date;
     private String solution;
     private String note;
 
     @Override
     public String toString() {
-        return "IncidentReqeust{" +
+        return "IncidentRequest{" +
                 "id=" + id +
-                ", usedSources='" + usedSources + '\'' +
-                ", incidentDate=" + incidentDate +
-                ", incidentDescription='" + incidentDescription + '\'' +
+                ", used_sources='" + used_sources + '\'' +
+                ", incident_date=" + incident_date +
+                ", incident_description='" + incident_description + '\'' +
                 ", importance=" + importance +
-                ", system_admin_id=" + system_admin_id +
-                ", worker=" + worker +
+                ", worker_id=" + worker_id +
                 ", status=" + status +
-                ", closeDate=" + closeDate +
+                ", close_date=" + close_date +
                 ", solution='" + solution + '\'' +
                 ", note='" + note + '\'' +
                 '}';
@@ -49,28 +47,28 @@ public class IncidentReqeust {
         this.id = id;
     }
 
-    public String getUsedSources() {
-        return usedSources;
+    public String getUsed_sources() {
+        return used_sources;
     }
 
-    public void setUsedSources(String usedSources) {
-        this.usedSources = usedSources;
+    public void setUsed_sources(String used_sources) {
+        this.used_sources = used_sources;
     }
 
-    public Date getIncidentDate() {
-        return incidentDate;
+    public Date getIncident_date() {
+        return incident_date;
     }
 
-    public void setIncidentDate(Date incidentDate) {
-        this.incidentDate = incidentDate;
+    public void setIncident_date(Date incident_date) {
+        this.incident_date = incident_date;
     }
 
-    public String getIncidentDescription() {
-        return incidentDescription;
+    public String getIncident_description() {
+        return incident_description;
     }
 
-    public void setIncidentDescription(String incidentDescription) {
-        this.incidentDescription = incidentDescription;
+    public void setIncident_description(String incident_description) {
+        this.incident_description = incident_description;
     }
 
     public ImportanceEnum getImportance() {
@@ -81,20 +79,12 @@ public class IncidentReqeust {
         this.importance = importance;
     }
 
-    public UUID getSystem_admin_id() {
-        return system_admin_id;
+    public UUID getWorker_id() {
+        return worker_id;
     }
 
-    public void setSystem_admin_id(UUID system_admin_id) {
-        this.system_admin_id = system_admin_id;
-    }
-
-    public SystemAdmin getWorker() {
-        return worker;
-    }
-
-    public void setWorker(SystemAdmin worker) {
-        this.worker = worker;
+    public void setWorker_id(UUID worker_id) {
+        this.worker_id = worker_id;
     }
 
     public StatusEnum getStatus() {
@@ -105,12 +95,12 @@ public class IncidentReqeust {
         this.status = status;
     }
 
-    public Date getCloseDate() {
-        return closeDate;
+    public Date getClose_date() {
+        return close_date;
     }
 
-    public void setCloseDate(Date closeDate) {
-        this.closeDate = closeDate;
+    public void setClose_date(Date close_date) {
+        this.close_date = close_date;
     }
 
     public String getSolution() {
