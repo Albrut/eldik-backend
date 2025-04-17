@@ -33,6 +33,7 @@ public class AdminController {
         this.systemAdminService = systemAdminService;
     }
 
+
     @GetMapping("/get/all/incidents")
     public ResponseEntity<Iterable<IncidentRequest>> getAllIncidents() {
         return ResponseEntity.ok(incidentRequestService.findAllIncidentRequests());

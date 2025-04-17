@@ -8,9 +8,11 @@ import kg.eldik.incidentmanagement.models.enums.StatusEnum;
 import kg.eldik.incidentmanagement.payload.request.SystemAdminCreate;
 import kg.eldik.incidentmanagement.repository.SystemAdminRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+@Repository
 public class SystemAdminRepositoryImpl implements SystemAdminRepository {
     private final JdbcTemplate jdbcTemplate;
 
