@@ -1,10 +1,12 @@
 package kg.eldik.incidentmanagement.controller.rest_api;
 
 import kg.eldik.incidentmanagement.models.entity.IncidentRequest;
+import kg.eldik.incidentmanagement.models.entity.SystemAdmin;
 import kg.eldik.incidentmanagement.payload.request.IncidentRequestCreate;
 import kg.eldik.incidentmanagement.payload.request.UpdateIncidentRequest;
 import kg.eldik.incidentmanagement.repository.CreateIncidentRepository;
 import kg.eldik.incidentmanagement.service.IncidentRequestService;
+import kg.eldik.incidentmanagement.service.SystemAdminService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,10 +24,12 @@ import java.util.UUID;
 public class AdminController {
     private final IncidentRequestService incidentRequestService;
     private final CreateIncidentRepository createIncidentRepository;
+    private final SystemAdminService systemAdminService;
 
-    public AdminController(IncidentRequestService incidentRequestService, CreateIncidentRepository createIncidentRepository) {
+    public AdminController(IncidentRequestService incidentRequestService, CreateIncidentRepository createIncidentRepository, SystemAdminService systemAdminService) {
         this.incidentRequestService = incidentRequestService;
         this.createIncidentRepository = createIncidentRepository;
+        this.systemAdminService = systemAdminService;
     }
 
     @GetMapping("/get/all/incidents")
@@ -46,5 +50,10 @@ public class AdminController {
     @PostMapping("/create/incident")
     public ResponseEntity<IncidentRequest> createIncident(@RequestBody IncidentRequestCreate incidentRequestCreate) {
         return ResponseEntity.ok(createIncidentRepository.createIncidentRequestSQL(incidentRequestCreate));
+    }
+
+    @PostMapping("/create/system_admin")
+    public ResponseEntity<SystemAdmin> createSystemAdmin(@RequestBody SystemAdmin systemAdmin) {
+        return ResponseEntity.ok(systemAdminService.createSystemAdmin(systemAdmin));
     }
 }
