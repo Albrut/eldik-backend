@@ -1,6 +1,8 @@
 package kg.eldik.incidentmanagement.service.impl;
 
 import kg.eldik.incidentmanagement.models.entity.IncidentRequest;
+import kg.eldik.incidentmanagement.models.enums.StatusEnum;
+import kg.eldik.incidentmanagement.payload.request.IncidentRequestCreate;
 import kg.eldik.incidentmanagement.payload.request.UpdateIncidentRequest;
 import kg.eldik.incidentmanagement.repository.IncidentRequestRepository;
 import kg.eldik.incidentmanagement.service.IncidentRequestService;
@@ -33,6 +35,30 @@ public class IncidentRequestServiceImpl implements IncidentRequestService {
         IncidentRequest incidentRequest = incidentRequestRepository.findById(updateRequest.getId()).orElse(null);
 
         applyUpdates(incidentRequest, updateRequest);
+
+        return incidentRequestRepository.save(incidentRequest);
+    }
+
+    @Override
+    public IncidentRequest archiveIncident(UUID id) {
+        IncidentRequest incidentRequest = incidentRequestRepository.findById(id).orElseThrow(() -> new RuntimeException("Incident not found"));
+        incidentRequest.setStatus(StatusEnum.archived);
+        return incidentRequestRepository.save(incidentRequest);
+    }
+
+    @Override
+    public IncidentRequest createIncident(IncidentRequestCreate incidentRequestCreate) {
+        IncidentRequest incidentRequest = new IncidentRequest();
+
+        incidentRequest.setUsed_sources(incidentRequestCreate.getUsed_sources());
+        incidentRequest.setIncident_date(incidentRequestCreate.getIncident_date());
+        incidentRequest.setIncident_description(incidentRequestCreate.getIncident_description());
+        incidentRequest.setImportance(incidentRequestCreate.getImportance());
+        incidentRequest.setWorker_id(incidentRequestCreate.getWorker_id());
+        incidentRequest.setStatus(incidentRequestCreate.getStatus());
+        incidentRequest.setClose_date(incidentRequestCreate.getClose_date());
+        incidentRequest.setSolution(incidentRequestCreate.getSolution());
+        incidentRequest.setNote(incidentRequestCreate.getNote());
 
         return incidentRequestRepository.save(incidentRequest);
     }

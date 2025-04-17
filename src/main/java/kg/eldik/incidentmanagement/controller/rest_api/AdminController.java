@@ -1,6 +1,7 @@
 package kg.eldik.incidentmanagement.controller.rest_api;
 
 import kg.eldik.incidentmanagement.models.entity.IncidentRequest;
+import kg.eldik.incidentmanagement.payload.request.IncidentRequestCreate;
 import kg.eldik.incidentmanagement.payload.request.UpdateIncidentRequest;
 import kg.eldik.incidentmanagement.repository.IncidentRequestRepository;
 import kg.eldik.incidentmanagement.service.IncidentRequestService;
@@ -29,5 +30,15 @@ public class AdminController {
     @PatchMapping("/update/incident")
     public ResponseEntity<?> updateIncident(UpdateIncidentRequest updateRequest) {
         return ResponseEntity.ok(incidentRequestService.updateIncidentRequest(updateRequest));
+    }
+
+    @PostMapping("/archive/incident")
+    public ResponseEntity<?> archiveIncident(@RequestParam UUID id) {
+        return ResponseEntity.ok(incidentRequestService.archiveIncident(id));
+    }
+
+    @PostMapping("/create/incident")
+    public ResponseEntity<?> createIncident(@RequestBody IncidentRequestCreate incidentRequestCreate) {
+        return ResponseEntity.ok(incidentRequestService.createIncident(incidentRequestCreate));
     }
 }
