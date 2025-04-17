@@ -31,7 +31,7 @@ public class SystemAdminRepositoryImpl implements SystemAdminRepository {
                 systemAdminCreate.getFirstName(),
                 systemAdminCreate.getLastName(),
                 systemAdminCreate.getPatronymic(),
-                systemAdminCreate.getRank(),  // This will be cast to importance_enum
+                systemAdminCreate.getRank().name(),
                 systemAdminCreate.getIs_active(),
         }, (rs, rowNum) -> {
             SystemAdmin systemAdmin = new SystemAdmin();
