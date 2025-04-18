@@ -32,30 +32,34 @@ public class IncidentRepositoryImpl implements IncidentRepository {
                 "note = ? " +
                 "WHERE id = ? RETURNING *";
 
-        return jdbcTemplate.queryForObject(sql, new Object[]{
-                updateDto.getUsed_sources(),
-                updateDto.getIncident_date(),
-                updateDto.getIncident_description(),
-                updateDto.getImportance().name(),
-                updateDto.getWorker_id(),
-                updateDto.getStatus().name(),
-                updateDto.getClose_date(),
-                updateDto.getSolution(),
-                updateDto.getNote(),
-                updateDto.getId()
-        }, (rs, rowNum) -> {
-            IncidentRequest incident = new IncidentRequest();
-            incident.setId(UUID.fromString(rs.getString("id")));
-            incident.setUsed_sources(rs.getString("used_sources"));
-            incident.setIncident_date(rs.getDate("incident_date"));
-            incident.setIncident_description(rs.getString("incident_description"));
-            incident.setImportance(ImportanceEnum.valueOf(rs.getString("importance")));
-            incident.setWorker_id(UUID.fromString(rs.getString("worker_id")));
-            incident.setStatus(StatusEnum.valueOf(rs.getString("status")));
-            incident.setClose_date(rs.getDate("close_date"));
-            incident.setSolution(rs.getString("solution"));
-            incident.setNote(rs.getString("note"));
-            return incident;
-        });
+        return jdbcTemplate.queryForObject(sql,
+                new Object[]{
+                        updateDto.getUsed_sources(),
+                        updateDto.getIncident_date(),
+                        updateDto.getIncident_description(),
+                        updateDto.getImportance().name(),
+                        updateDto.getWorker_id(),
+                        updateDto.getStatus().name(),
+                        updateDto.getClose_date(),
+                        updateDto.getSolution(),
+                        updateDto.getNote(),
+                        updateDto.getId()
+                },
+                (rs, rowNum) -> {
+                    IncidentRequest ir = new IncidentRequest();
+                    ir.setId(UUID.fromString(rs.getString("id")));
+                    ir.setUsed_sources(rs.getString("used_sources"));
+                    ir.setIncident_date(rs.getTimestamp("incident_date"));
+                    ir.setIncident_description(rs.getString("incident_description"));
+                    ir.setImportance(ImportanceEnum.valueOf(rs.getString("importance")));
+                    ir.setWorker_id(UUID.fromString(rs.getString("worker_id")));
+                    ir.setStatus(StatusEnum.valueOf(rs.getString("status")));
+                    ir.setClose_date(rs.getTimestamp("close_date"));
+                    ir.setSolution(rs.getString("solution"));
+                    ir.setNote(rs.getString("note"));
+                    return ir;
+                }
+        );
+
     }
 }

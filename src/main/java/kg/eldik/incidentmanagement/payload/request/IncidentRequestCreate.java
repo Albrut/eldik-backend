@@ -1,5 +1,6 @@
 package kg.eldik.incidentmanagement.payload.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import kg.eldik.incidentmanagement.models.enums.ImportanceEnum;
 import kg.eldik.incidentmanagement.models.enums.StatusEnum;
 
@@ -9,12 +10,18 @@ import java.util.UUID;
 public class IncidentRequestCreate {
     private UUID id;
     private String used_sources;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date incident_date;
+
     private String incident_description;
     private ImportanceEnum importance;
     private UUID worker_id;
     private StatusEnum status;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date close_date;
+
     private String solution;
     private String note;
 

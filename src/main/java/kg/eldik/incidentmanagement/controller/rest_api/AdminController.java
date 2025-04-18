@@ -1,5 +1,6 @@
 package kg.eldik.incidentmanagement.controller.rest_api;
 
+import jakarta.validation.Valid;
 import kg.eldik.incidentmanagement.models.entity.IncidentRequest;
 import kg.eldik.incidentmanagement.models.entity.SystemAdmin;
 import kg.eldik.incidentmanagement.payload.request.IncidentRequestCreate;
@@ -43,9 +44,13 @@ public class AdminController {
     }
 
     @PatchMapping("/update/incident")
-    public ResponseEntity<IncidentRequest> updateIncident( IncidentRequestCreate updateDto) {
-        return ResponseEntity.ok(incidentRepository.updateIncidentRequestSQL(updateDto));
+    public ResponseEntity<IncidentRequest> updateIncident(
+            @RequestBody @Valid IncidentRequestCreate updateDto) {
+        return ResponseEntity.ok(
+                incidentRepository.updateIncidentRequestSQL(updateDto)
+        );
     }
+
 
     @PostMapping("/archive/incident")
     public ResponseEntity<IncidentRequest> archiveIncident(@RequestParam UUID id) {
