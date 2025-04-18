@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class IncidentRequestCreate {
+    private UUID id;
     private String used_sources;
     private Date incident_date;
     private String incident_description;
@@ -32,6 +33,13 @@ public class IncidentRequestCreate {
                 '}';
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String getUsed_sources() {
         return used_sources;

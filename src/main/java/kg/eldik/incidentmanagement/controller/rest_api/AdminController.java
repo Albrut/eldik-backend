@@ -6,6 +6,7 @@ import kg.eldik.incidentmanagement.payload.request.IncidentRequestCreate;
 import kg.eldik.incidentmanagement.payload.request.SystemAdminCreate;
 import kg.eldik.incidentmanagement.payload.request.UpdateIncidentRequest;
 import kg.eldik.incidentmanagement.repository.CreateIncidentRepository;
+import kg.eldik.incidentmanagement.repository.IncidentRepository;
 import kg.eldik.incidentmanagement.service.IncidentRequestService;
 import kg.eldik.incidentmanagement.service.SystemAdminService;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +24,13 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/admin")
 public class AdminController {
+    private final IncidentRepository incidentRepository;
     private final IncidentRequestService incidentRequestService;
     private final CreateIncidentRepository createIncidentRepository;
     private final SystemAdminService systemAdminService;
 
-    public AdminController(IncidentRequestService incidentRequestService, CreateIncidentRepository createIncidentRepository, SystemAdminService systemAdminService) {
+    public AdminController(IncidentRepository incidentRepository, IncidentRequestService incidentRequestService, CreateIncidentRepository createIncidentRepository, SystemAdminService systemAdminService) {
+        this.incidentRepository = incidentRepository;
         this.incidentRequestService = incidentRequestService;
         this.createIncidentRepository = createIncidentRepository;
         this.systemAdminService = systemAdminService;
@@ -40,8 +43,8 @@ public class AdminController {
     }
 
     @PatchMapping("/update/incident")
-    public ResponseEntity<IncidentRequest> updateIncident(UpdateIncidentRequest updateRequest) {
-        return ResponseEntity.ok(incidentRequestService.updateIncidentRequest(updateRequest));
+    public ResponseEntity<IncidentRequest> updateIncident( IncidentRequestCreate updateDto) {
+        return ResponseEntity.ok(incidentRepository.updateIncidentRequestSQL(updateDto));
     }
 
     @PostMapping("/archive/incident")
