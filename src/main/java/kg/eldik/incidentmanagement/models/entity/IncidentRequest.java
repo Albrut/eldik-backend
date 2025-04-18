@@ -1,9 +1,11 @@
 package kg.eldik.incidentmanagement.models.entity;//package kg.eldik.incidentmanagement.models.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import kg.eldik.incidentmanagement.models.enums.ImportanceEnum;
 import kg.eldik.incidentmanagement.models.enums.StatusEnum;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Date;
@@ -14,12 +16,19 @@ public class IncidentRequest {
     @Id
     private UUID id;
     private String used_sources;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date incident_date;
+
     private String incident_description;
+    @Column("importance")
     private ImportanceEnum importance;
     private UUID worker_id;
     private StatusEnum status;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date close_date;
+
     private String solution;
     private String note;
 
