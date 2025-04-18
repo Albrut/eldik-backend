@@ -62,4 +62,30 @@ public class IncidentRepositoryImpl implements IncidentRepository {
         );
 
     }
+
+    @Override
+    public IncidentRequest archiveIncidentRequestSQL(UUID id) {
+        String sql = "UPDATE incident_request SET " +
+                "status = ?::status_enum " +
+                "WHERE id = ? " +
+                "RETURNING *";
+
+        return jdbcTemplate.queryForObject(sql, new Object[]{
+                StatusEnum.archived.name(),  // Преобразуем enum в строку
+                id                           // ID инцидента для обновления
+        }, (rs, rowNum) -> {
+            IncidentRequest incident = new IncidentRequest();
+            incident.setId(UUID.fromString(rs.getString("id")));
+            incident.setUsed_sources(rs.getString("used_sources"));
+            incident.setIncident_date(rs.getDate("incident_date"));
+            incident.setIncident_description(rs.getString("incident_description"));
+            incident.setImportance(ImportanceEnum.valueOf(rs.getString("importance")));
+            incident.setWorker_id(UUID.fromString(rs.getString("worker_id")));
+            incident.setStatus(StatusEnum.valueOf(rs.getString("status")));
+            incident.setClose_date(rs.getDate("close_date"));
+            incident.setSolution(rs.getString("solution"));
+            incident.setNote(rs.getString("note"));
+            return incident;
+        });
+    }
 }

@@ -53,7 +53,7 @@ public class AdminController {
 
     @PostMapping("/archive/incident")
     public ResponseEntity<IncidentRequest> archiveIncident(@RequestParam UUID id) {
-        return ResponseEntity.ok(incidentRequestService.archiveIncident(id));
+        return ResponseEntity.ok(incidentRepository.archiveIncidentRequestSQL(id));
     }
 
     @PostMapping("/create/incident")
