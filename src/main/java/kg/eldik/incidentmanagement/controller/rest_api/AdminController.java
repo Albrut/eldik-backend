@@ -5,7 +5,6 @@ import kg.eldik.incidentmanagement.models.entity.IncidentRequest;
 import kg.eldik.incidentmanagement.models.entity.SystemAdmin;
 import kg.eldik.incidentmanagement.payload.request.IncidentRequestCreate;
 import kg.eldik.incidentmanagement.payload.request.SystemAdminCreate;
-import kg.eldik.incidentmanagement.payload.request.UpdateIncidentRequest;
 import kg.eldik.incidentmanagement.repository.CreateIncidentRepository;
 import kg.eldik.incidentmanagement.repository.IncidentRepository;
 import kg.eldik.incidentmanagement.service.IncidentRequestService;

@@ -4,7 +4,6 @@ import kg.eldik.incidentmanagement.models.enums.ImportanceEnum;
 import kg.eldik.incidentmanagement.models.enums.StatusEnum;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.UUID;
 
 public class UpdateIncidentRequest {
