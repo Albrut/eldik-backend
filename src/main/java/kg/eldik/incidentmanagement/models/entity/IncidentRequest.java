@@ -1,4 +1,4 @@
-package kg.eldik.incidentmanagement.models.entity;//package kg.eldik.incidentmanagement.models.entity;
+package kg.eldik.incidentmanagement.models.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;

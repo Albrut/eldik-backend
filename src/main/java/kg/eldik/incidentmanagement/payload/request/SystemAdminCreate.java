@@ -5,8 +5,6 @@ import kg.eldik.incidentmanagement.models.enums.RankEnum;
 public class SystemAdminCreate {
     private String firstName;
     private String lastName;
-    private String patronymic;
-    private RankEnum rank;
     private boolean is_active;
 
     public boolean getIs_active() {
@@ -32,30 +30,12 @@ public class SystemAdminCreate {
         this.lastName = lastName;
     }
 
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
-
-    public RankEnum getRank() {
-        return rank;
-    }
-
-    public void setRank(RankEnum rank) {
-        this.rank = rank;
-    }
-
     @Override
     public String toString() {
         return "SystemAdminCreate{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", patronymic='" + patronymic + '\'' +
                 ", isActive='" + is_active + '\'' +
-                ", rank=" + rank +
                 '}';
     }
 }

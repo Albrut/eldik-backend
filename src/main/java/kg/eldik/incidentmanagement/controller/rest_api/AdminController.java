@@ -2,13 +2,13 @@ package kg.eldik.incidentmanagement.controller.rest_api;
 
 import jakarta.validation.Valid;
 import kg.eldik.incidentmanagement.models.entity.IncidentRequest;
-import kg.eldik.incidentmanagement.models.entity.SystemAdmin;
 import kg.eldik.incidentmanagement.payload.request.IncidentRequestCreate;
 import kg.eldik.incidentmanagement.payload.request.SystemAdminCreate;
 import kg.eldik.incidentmanagement.repository.CreateIncidentRepository;
 import kg.eldik.incidentmanagement.repository.IncidentRepository;
 import kg.eldik.incidentmanagement.service.IncidentRequestService;
 import kg.eldik.incidentmanagement.service.SystemAdminService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -57,12 +57,16 @@ public class AdminController {
     }
 
     @PostMapping("/create/incident")
-    public ResponseEntity<IncidentRequest> createIncident(@RequestBody IncidentRequestCreate incidentRequestCreate) {
-        return ResponseEntity.ok(createIncidentRepository.createIncidentRequestSQL(incidentRequestCreate));
+    public ResponseEntity<IncidentRequest> createIncident(@RequestBody IncidentRequest IncidentRequest) {
+        return ResponseEntity.ok(createIncidentRepository.createIncidentRequestSQL(IncidentRequest));
     }
 
     @PostMapping("/create/system_admin")
-    public ResponseEntity<SystemAdmin> createSystemAdmin(@RequestBody SystemAdminCreate systemAdminCreate) {
-        return ResponseEntity.ok(systemAdminService.createSystemAdmin(systemAdminCreate));
+    public ResponseEntity<String> createSystemAdmin(@RequestBody SystemAdminCreate systemAdminCreate) {
+       if (systemAdminService.createSystemAdmin(systemAdminCreate).isEmpty()){
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exist");
+       }else {
+           return ResponseEntity.ok("System admin created");
+       }
     }
 }
