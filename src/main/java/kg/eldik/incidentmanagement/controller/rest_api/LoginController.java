@@ -20,6 +20,8 @@ public class LoginController {
     @PostMapping
     public ResponseEntity<String> login(@RequestBody UserLoginRequest userLoginRequest) {
         String authToken = zabbixApiService.login(userLoginRequest.username(), userLoginRequest.password());
+        System.out.println(zabbixApiService.getProblemData(authToken));
+        System.out.println(zabbixApiService.getUserInfo(authToken));
         return ResponseEntity.ok(authToken);
     }
 }
