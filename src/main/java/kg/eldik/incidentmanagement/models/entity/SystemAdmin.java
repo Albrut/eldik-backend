@@ -1,6 +1,5 @@
-package kg.eldik.incidentmanagement.models.entity;//package kg.eldik.incidentmanagement.models.entity;
+package kg.eldik.incidentmanagement.models.entity;
 
-import kg.eldik.incidentmanagement.models.enums.RankEnum;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -13,8 +12,6 @@ public class SystemAdmin {
     private UUID id;
     private String firstName;
     private String lastName;
-    private String patronymic;
-    private RankEnum rank;
     private boolean is_active;
 
     public boolean getIs_active() {
@@ -31,8 +28,6 @@ public class SystemAdmin {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", patronymic='" + patronymic + '\'' +
-                ", rank=" + rank +
                 '}';
     }
 
@@ -60,19 +55,5 @@ public class SystemAdmin {
         this.lastName = lastName;
     }
 
-    public String getPatronymic() {
-        return patronymic;
-    }
 
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
-
-    public RankEnum getRank() {
-        return rank;
-    }
-
-    public void setRank(RankEnum rank) {
-        this.rank = rank;
-    }
 }

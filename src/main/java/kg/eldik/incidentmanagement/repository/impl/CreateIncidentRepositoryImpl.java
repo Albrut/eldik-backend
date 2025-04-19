@@ -3,7 +3,6 @@ package kg.eldik.incidentmanagement.repository.impl;
 import kg.eldik.incidentmanagement.models.entity.IncidentRequest;
 import kg.eldik.incidentmanagement.models.enums.ImportanceEnum;
 import kg.eldik.incidentmanagement.models.enums.StatusEnum;
-import kg.eldik.incidentmanagement.payload.request.IncidentRequestCreate;
 import kg.eldik.incidentmanagement.repository.CreateIncidentRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,7 +19,7 @@ public class CreateIncidentRepositoryImpl implements CreateIncidentRepository {
 
 
     @Override
-    public IncidentRequest createIncidentRequestSQL(IncidentRequestCreate createDto) {
+    public IncidentRequest createIncidentRequestSQL(IncidentRequest createDto) {
         String sql = "INSERT INTO incident_request " +
                 "(id, used_sources, incident_date, incident_description, importance, worker_id, status, close_date, solution, note) " +
                 "VALUES (?, ?, ?, ?, ?::importance_enum, ?, ?::status_enum, ?, ?, ?) RETURNING *";

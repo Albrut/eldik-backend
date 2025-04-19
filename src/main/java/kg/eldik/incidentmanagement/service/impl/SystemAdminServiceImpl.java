@@ -4,9 +4,9 @@ import kg.eldik.incidentmanagement.models.entity.SystemAdmin;
 import kg.eldik.incidentmanagement.payload.request.SystemAdminCreate;
 import kg.eldik.incidentmanagement.repository.SystemAdminRepository;
 import kg.eldik.incidentmanagement.service.SystemAdminService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class SystemAdminServiceImpl implements SystemAdminService {
@@ -18,7 +18,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
 
 
     @Override
-    public SystemAdmin createSystemAdmin(SystemAdminCreate systemAdminCreate) {
+    public Optional<SystemAdmin> createSystemAdmin(SystemAdminCreate systemAdminCreate) {
         return systemAdminRepository.createSystemAdminSQL(systemAdminCreate);
     }
 }
