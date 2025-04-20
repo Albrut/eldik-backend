@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  spring-app:
+    image: openjdk:17-jdk-slim
+    container_name: spring-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./target:/app
+    working_dir: /app
+    command: bash -c "mvn clean package && java -jar target/*.jar"
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://79.137.162.11:5432/incidents_db
+      SPRING_DATASOURCE_USERNAME: incident_admin
+      SPRING_DATASOURCE_PASSWORD: S3cur3P@ssw0rd!
+      ZABBIX_URL: http://147.45.219.13:5000/api
+    restart: always
