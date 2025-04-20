@@ -1,5 +1,5 @@
 package kg.eldik.incidentmanagement.controller.rest_api;
-
+import kg.eldik.incidentmanagement.payload.request.IncidentRequestDTO;
 import jakarta.validation.Valid;
 import kg.eldik.incidentmanagement.models.entity.IncidentRequest;
 import kg.eldik.incidentmanagement.models.entity.SystemAdmin;
@@ -58,8 +58,8 @@ public class AdminController {
     }
 
     @PostMapping("/create/incident")
-    public ResponseEntity<IncidentRequest> createIncident(@RequestBody IncidentRequest IncidentRequest) {
-        return ResponseEntity.ok(createIncidentRepository.createIncidentRequestSQL(IncidentRequest));
+    public ResponseEntity<IncidentRequest> createIncident(@RequestBody IncidentRequestDTO incidentRequestDTO) {
+        return ResponseEntity.ok(createIncidentRepository.createIncidentRequestSQL(incidentRequestDTO));
     }
 
     @PostMapping("/create/system_admin")
