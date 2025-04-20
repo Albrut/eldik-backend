@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface SystemAdminRepository {
     Optional<SystemAdmin> createSystemAdminSQL(SystemAdminCreate systemAdminCreate);
+    boolean updateSystemAdmin(SystemAdmin systemAdmin);
+    boolean archiveSystemAdmin(String username);
 }

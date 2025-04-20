@@ -4,6 +4,7 @@ package kg.eldik.incidentmanagement.payload.request;
 import kg.eldik.incidentmanagement.models.enums.RoleEnum;
 
 public class SystemAdminCreate {
+    private String username;
     private String firstName;
     private String lastName;
     private boolean is_active;
@@ -11,6 +12,25 @@ public class SystemAdminCreate {
 
     public boolean isIs_active() {
         return is_active;
+    }
+
+    @Override
+    public String toString() {
+        return "SystemAdminCreate{" +
+                "username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", is_active=" + is_active +
+                ", role=" + role +
+                '}';
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public RoleEnum getRole() {
@@ -44,13 +64,4 @@ public class SystemAdminCreate {
         this.lastName = lastName;
     }
 
-    @Override
-    public String toString() {
-        return "SystemAdminCreate{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", is_active=" + is_active +
-                ", role=" + role +
-                '}';
-    }
 }
