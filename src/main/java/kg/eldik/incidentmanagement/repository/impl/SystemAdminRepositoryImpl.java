@@ -5,6 +5,7 @@ import kg.eldik.incidentmanagement.payload.request.SystemAdminCreate;
 import kg.eldik.incidentmanagement.repository.SystemAdminRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -14,23 +15,25 @@ public class SystemAdminRepositoryImpl implements SystemAdminRepository {
     private final JdbcTemplate jdbcTemplate;
 
     private final static String SQL_QUERY_CHECK_EXIST_USER = "SELECT EXISTS(SELECT 1 FROM system_admin WHERE first_name=? and last_name=?)";
-    private final static String SQL_QUERY_TO_CREATE_ADMIN = "INSERT INTO system_admin (id, first_name, last_name, is_active) " +
-            "VALUES (?, ?, ?, ?) RETURNING *";
+    private final static String SQL_QUERY_TO_CREATE_ADMIN = "INSERT INTO system_admin (id, first_name, last_name, is_active, role) " +
+            "VALUES (?, ?, ?, ?, ?::user_role) RETURNING *";
 
     public SystemAdminRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
+    @Transactional
     public Optional<SystemAdmin> createSystemAdminSQL(SystemAdminCreate systemAdminCreate) {
 
-        if ( checkSystemAdminIsExist(systemAdminCreate.getFirstName(), systemAdminCreate.getLastName())) {
+        if (!checkSystemAdminIsExist(systemAdminCreate.getFirstName(), systemAdminCreate.getLastName())) {
             UUID id = UUID.randomUUID();
             return Optional.ofNullable(jdbcTemplate.queryForObject(SQL_QUERY_TO_CREATE_ADMIN, new Object[]{
                     id,
                     systemAdminCreate.getFirstName(),
                     systemAdminCreate.getLastName(),
                     systemAdminCreate.getIs_active(),
+                    systemAdminCreate.getRole().toString().toLowerCase()
             }, (rs, rowNum) -> {
                 SystemAdmin systemAdmin = new SystemAdmin();
                 systemAdmin.setId(UUID.fromString(rs.getString("id")));
@@ -46,5 +49,6 @@ public class SystemAdminRepositoryImpl implements SystemAdminRepository {
 
     private Boolean checkSystemAdminIsExist(String firstName, String lastName) {
         return jdbcTemplate.queryForObject(SQL_QUERY_CHECK_EXIST_USER, Boolean.class, firstName, lastName);
+
     }
 }

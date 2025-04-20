@@ -1,5 +1,6 @@
 package kg.eldik.incidentmanagement.models.entity;
 
+import kg.eldik.incidentmanagement.models.enums.RoleEnum;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -13,6 +14,7 @@ public class SystemAdmin {
     private String firstName;
     private String lastName;
     private boolean is_active;
+    private RoleEnum role;
 
     public boolean getIs_active() {
         return is_active;
@@ -21,6 +23,17 @@ public class SystemAdmin {
         this.is_active = is_active;
     }
 
+    public boolean isIs_active() {
+        return is_active;
+    }
+
+    public RoleEnum getRole() {
+        return role;
+    }
+
+    public void setRole(RoleEnum role) {
+        this.role = role;
+    }
 
     @Override
     public String toString() {
@@ -28,8 +41,12 @@ public class SystemAdmin {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", is_active=" + is_active +
+                ", role=" + role +
                 '}';
     }
+
+
 
     public UUID getId() {
         return id;

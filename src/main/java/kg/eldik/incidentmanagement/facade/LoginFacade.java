@@ -1,5 +1,7 @@
 package kg.eldik.incidentmanagement.facade;
 
+import java.util.Optional;
+
 public interface LoginFacade {
-    boolean login(String username, String password);
+    Optional<String> login(String username, String password);
 }
