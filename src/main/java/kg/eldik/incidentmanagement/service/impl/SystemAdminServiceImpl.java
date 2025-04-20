@@ -26,4 +26,8 @@ public class SystemAdminServiceImpl implements SystemAdminService {
     public boolean updateSystemAdmin(SystemAdmin systemAdmin) {
         return systemAdminRepository.updateSystemAdmin(systemAdmin);
     }
+    @Override
+    public boolean archiveSystemAdmin(String name, String lastName) {
+       return systemAdminRepository.archiveSystemAdmin(name, lastName);
+    }
 }

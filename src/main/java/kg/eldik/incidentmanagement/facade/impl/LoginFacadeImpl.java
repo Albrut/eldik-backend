@@ -33,6 +33,7 @@ public class LoginFacadeImpl implements LoginFacade {
         systemAdminCreate.setFirstName(userInfo.get("name").asText());
         systemAdminCreate.setLastName(userInfo.get("surname").asText());
         systemAdminCreate.setRole(userInfo.get("alias").asText().equals("admin") ? RoleEnum.ADMIN : RoleEnum.USER);
+        systemAdminCreate.setUsername(username);
         systemAdminRepository.createSystemAdminSQL(systemAdminCreate);
         return authToken;
     }

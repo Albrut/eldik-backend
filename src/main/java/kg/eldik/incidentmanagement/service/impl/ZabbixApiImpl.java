@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import kg.eldik.incidentmanagement.service.SystemAdminService;
 import kg.eldik.incidentmanagement.service.ZabbixApiService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -21,12 +22,14 @@ public class ZabbixApiImpl implements ZabbixApiService {
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    private final SystemAdminService systemAdminService;
 
     @Value("${zabbix.url}")
     private String zabbixUrl;
 
-    public ZabbixApiImpl(RestTemplate restTemplate) {
+    public ZabbixApiImpl(RestTemplate restTemplate, SystemAdminService systemAdminService) {
         this.restTemplate = restTemplate;
+        this.systemAdminService = systemAdminService;
         this.objectMapper = new ObjectMapper();
     }
 
@@ -56,6 +59,9 @@ public class ZabbixApiImpl implements ZabbixApiService {
                 return jsonResponse.get("result").asText();
             } else if (jsonResponse.has("error")) {
                 String errorMessage = jsonResponse.get("error").get("message").asText();
+                if (errorMessage.equals("Invalid credentials")){
+//                    systemAdminService.archiveSystemAdmin()
+                }
                 throw new IllegalArgumentException("Zabbix login failed: " + errorMessage);
             }
 

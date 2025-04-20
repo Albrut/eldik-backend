@@ -15,10 +15,12 @@ public class SystemAdminRepositoryImpl implements SystemAdminRepository {
     private final JdbcTemplate jdbcTemplate;
 
     private final static String SQL_QUERY_CHECK_EXIST_USER = "SELECT EXISTS(SELECT 1 FROM system_admin WHERE first_name=? and last_name=?)";
-    private final static String SQL_QUERY_TO_CREATE_ADMIN = "INSERT INTO system_admin (id, first_name, last_name, is_active, role) " +
-            "VALUES (?, ?, ?, ?, ?::user_role) RETURNING *";
+    private final static String SQL_QUERY_TO_CREATE_ADMIN = "INSERT INTO system_admin (id, first_name, last_name, is_active, role, username) " +
+            "VALUES (?, ?, ?, ?, ?::user_role, ?) RETURNING *";
     private final static String SQL_QUERY_TO_UPDATE_ADMIN =
             "UPDATE system_admin SET first_name = ?, last_name = ?, is_active = ?, role = ?::user_role WHERE id = ?";
+
+    private final static String SQL_QUERY_TO_ARCHIVE_ADMIN = "UPDATE system_admin SET is_active = ?,  WHERE first_name = ? AND last_name = ?";
 
     public SystemAdminRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -35,7 +37,8 @@ public class SystemAdminRepositoryImpl implements SystemAdminRepository {
                     systemAdminCreate.getFirstName(),
                     systemAdminCreate.getLastName(),
                     systemAdminCreate.getIs_active(),
-                    systemAdminCreate.getRole().toString().toLowerCase()
+                    systemAdminCreate.getRole().toString().toLowerCase(),
+                    systemAdminCreate.getUsername()
             }, (rs, rowNum) -> {
                 SystemAdmin systemAdmin = new SystemAdmin();
                 systemAdmin.setId(UUID.fromString(rs.getString("id")));
@@ -54,6 +57,7 @@ public class SystemAdminRepositoryImpl implements SystemAdminRepository {
 
     }
     @Override
+    @Transactional
     public boolean updateSystemAdmin(SystemAdmin systemAdmin) {
         int rowsUpdated = jdbcTemplate.update(SQL_QUERY_TO_UPDATE_ADMIN,
                 systemAdmin.getFirstName(),
@@ -65,6 +69,14 @@ public class SystemAdminRepositoryImpl implements SystemAdminRepository {
 
         return rowsUpdated > 0;
     }
-
+    @Override
+    @Transactional
+    public boolean archiveSystemAdmin(String firstName, String lastName) {
+        if(checkSystemAdminIsExist(firstName, lastName)){
+            jdbcTemplate.update(SQL_QUERY_TO_ARCHIVE_ADMIN, false, firstName, lastName);
+            return true;
+        }
+        return false;
+    }
 
 }
