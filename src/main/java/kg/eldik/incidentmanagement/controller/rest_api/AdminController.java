@@ -2,6 +2,7 @@ package kg.eldik.incidentmanagement.controller.rest_api;
 
 import jakarta.validation.Valid;
 import kg.eldik.incidentmanagement.models.entity.IncidentRequest;
+import kg.eldik.incidentmanagement.models.entity.SystemAdmin;
 import kg.eldik.incidentmanagement.payload.request.IncidentRequestCreate;
 import kg.eldik.incidentmanagement.payload.request.SystemAdminCreate;
 import kg.eldik.incidentmanagement.repository.CreateIncidentRepository;
@@ -68,5 +69,9 @@ public class AdminController {
        }else {
            return ResponseEntity.ok("System admin created");
        }
+    }
+    @PatchMapping("/update/system_admin")
+    public ResponseEntity<Boolean> updateSystemAdmin(@RequestBody SystemAdmin systemAdminCreate) {
+        return ResponseEntity.ok(systemAdminService.updateSystemAdmin(systemAdminCreate));
     }
 }

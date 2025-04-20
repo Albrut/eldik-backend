@@ -17,6 +17,8 @@ public class SystemAdminRepositoryImpl implements SystemAdminRepository {
     private final static String SQL_QUERY_CHECK_EXIST_USER = "SELECT EXISTS(SELECT 1 FROM system_admin WHERE first_name=? and last_name=?)";
     private final static String SQL_QUERY_TO_CREATE_ADMIN = "INSERT INTO system_admin (id, first_name, last_name, is_active, role) " +
             "VALUES (?, ?, ?, ?, ?::user_role) RETURNING *";
+    private final static String SQL_QUERY_TO_UPDATE_ADMIN =
+            "UPDATE system_admin SET first_name = ?, last_name = ?, is_active = ?, role = ?::user_role WHERE id = ?";
 
     public SystemAdminRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -51,4 +53,18 @@ public class SystemAdminRepositoryImpl implements SystemAdminRepository {
         return jdbcTemplate.queryForObject(SQL_QUERY_CHECK_EXIST_USER, Boolean.class, firstName, lastName);
 
     }
+    @Override
+    public boolean updateSystemAdmin(SystemAdmin systemAdmin) {
+        int rowsUpdated = jdbcTemplate.update(SQL_QUERY_TO_UPDATE_ADMIN,
+                systemAdmin.getFirstName(),
+                systemAdmin.getLastName(),
+                systemAdmin.getIs_active(),
+                systemAdmin.getRole().toString().toLowerCase(),
+                systemAdmin.getId()
+        );
+
+        return rowsUpdated > 0;
+    }
+
+
 }

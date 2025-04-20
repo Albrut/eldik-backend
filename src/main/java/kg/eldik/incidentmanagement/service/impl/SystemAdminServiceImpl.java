@@ -21,4 +21,9 @@ public class SystemAdminServiceImpl implements SystemAdminService {
     public Optional<SystemAdmin> createSystemAdmin(SystemAdminCreate systemAdminCreate) {
         return systemAdminRepository.createSystemAdminSQL(systemAdminCreate);
     }
+
+    @Override
+    public boolean updateSystemAdmin(SystemAdmin systemAdmin) {
+        return systemAdminRepository.updateSystemAdmin(systemAdmin);
+    }
 }
