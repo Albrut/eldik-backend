@@ -60,7 +60,7 @@ public class ZabbixApiImpl implements ZabbixApiService {
             } else if (jsonResponse.has("error")) {
                 String errorMessage = jsonResponse.get("error").get("message").asText();
                 if (errorMessage.equals("Invalid credentials")){
-//                    systemAdminService.archiveSystemAdmin()
+                    systemAdminService.archiveSystemAdmin(username);
                 }
                 throw new IllegalArgumentException("Zabbix login failed: " + errorMessage);
             }
