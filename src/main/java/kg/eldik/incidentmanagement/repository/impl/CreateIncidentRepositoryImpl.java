@@ -3,6 +3,7 @@ package kg.eldik.incidentmanagement.repository.impl;
 import kg.eldik.incidentmanagement.models.entity.IncidentRequest;
 import kg.eldik.incidentmanagement.models.enums.ImportanceEnum;
 import kg.eldik.incidentmanagement.models.enums.StatusEnum;
+import kg.eldik.incidentmanagement.payload.request.IncidentRequestDTO;
 import kg.eldik.incidentmanagement.repository.CreateIncidentRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,16 @@ public class CreateIncidentRepositoryImpl implements CreateIncidentRepository {
 
 
     @Override
-    public IncidentRequest createIncidentRequestSQL(IncidentRequest createDto) {
+    public IncidentRequest createIncidentRequestSQL(IncidentRequestDTO createDto) {
+        UUID workerId = createDto.workerId();
+        Boolean active = jdbcTemplate.queryForObject(
+                "SELECT is_active FROM system_admin WHERE id = ?",
+                Boolean.class,
+                workerId
+        );
+        if (active == null || !active) {
+            throw new IllegalStateException("Cannot create incident: worker " + workerId + " is not active");
+        }
         String sql = "INSERT INTO incident_request " +
                 "(id, used_sources, incident_date, incident_description, importance, worker_id, status, close_date, solution, note) " +
                 "VALUES (?, ?, ?, ?, ?::importance_enum, ?, ?::status_enum, ?, ?, ?) RETURNING *";
@@ -28,15 +38,15 @@ public class CreateIncidentRepositoryImpl implements CreateIncidentRepository {
 
         return jdbcTemplate.queryForObject(sql, new Object[]{
                 id,
-                createDto.getUsed_sources(),
-                createDto.getIncident_date(),
-                createDto.getIncident_description(),
-                createDto.getImportance().name(),  // This will be cast to importance_enum
-                createDto.getWorker_id(),
-                createDto.getStatus().name(),     // This will be cast to status_enum
-                createDto.getClose_date(),
-                createDto.getSolution(),
-                createDto.getNote()
+                createDto.usedSource(),
+                createDto.incidentDate(),
+                createDto.incident_description(),
+                createDto.importance().name(),  // This will be cast to importance_enum
+                createDto.workerId(),
+                createDto.status().name(),     // This will be cast to status_enum
+                createDto.closeDate(),
+                createDto.solution(),
+                createDto.note()
         }, (rs, rowNum) -> {
             IncidentRequest incident = new IncidentRequest();
             incident.setId(UUID.fromString(rs.getString("id")));
