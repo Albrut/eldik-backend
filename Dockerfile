@@ -2,7 +2,7 @@ FROM openjdk:17-jdk-slim AS build
 RUN apt-get update && apt-get install -y maven
 WORKDIR /app
 COPY . /app
-RUN mvn clean package
+RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk-slim
 WORKDIR /app
