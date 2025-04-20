@@ -5,6 +5,7 @@ import kg.eldik.incidentmanagement.models.entity.IncidentRequest;
 import kg.eldik.incidentmanagement.models.entity.SystemAdmin;
 import kg.eldik.incidentmanagement.payload.request.IncidentRequestCreate;
 import kg.eldik.incidentmanagement.payload.request.SystemAdminCreate;
+import kg.eldik.incidentmanagement.payload.response.SystemAdminResponse;
 import kg.eldik.incidentmanagement.repository.CreateIncidentRepository;
 import kg.eldik.incidentmanagement.repository.IncidentRepository;
 import kg.eldik.incidentmanagement.service.IncidentRequestService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -43,6 +45,15 @@ public class AdminController {
         return ResponseEntity.ok(incidentRequestService.findAllIncidentRequests());
     }
 
+    @GetMapping("/get/all/system_admins")
+    public ResponseEntity<List<SystemAdminResponse>> getAllSystemAdmins() {
+        List<SystemAdminResponse> allAdminsList = systemAdminService.getAllSystemAdmins();
+        if (allAdminsList.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.ok(allAdminsList);
+    }
+
     @PatchMapping("/update/incident")
     public ResponseEntity<IncidentRequest> updateIncident(
             @RequestBody @Valid IncidentRequestCreate updateDto) {
@@ -59,7 +70,7 @@ public class AdminController {
 
     @PostMapping("/create/incident")
     public ResponseEntity<IncidentRequest> createIncident(@RequestBody IncidentRequestDTO incidentRequestDTO) {
-        return ResponseEntity.ok(createIncidentRepository.createIncidentRequestSQL(incidentRequestDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(createIncidentRepository.createIncidentRequestSQL(incidentRequestDTO));
     }
 
     @PostMapping("/create/system_admin")
@@ -67,7 +78,7 @@ public class AdminController {
        if (systemAdminService.createSystemAdmin(systemAdminCreate).isEmpty()){
            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exist");
        }else {
-           return ResponseEntity.ok("System admin created");
+           return ResponseEntity.status(HttpStatus.CREATED).body("System admin created");
        }
     }
     @PatchMapping("/update/system_admin")

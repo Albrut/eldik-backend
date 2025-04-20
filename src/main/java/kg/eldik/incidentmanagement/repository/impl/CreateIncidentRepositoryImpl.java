@@ -21,6 +21,15 @@ public class CreateIncidentRepositoryImpl implements CreateIncidentRepository {
 
     @Override
     public IncidentRequest createIncidentRequestSQL(IncidentRequestDTO createDto) {
+        UUID workerId = createDto.workerId();
+        Boolean active = jdbcTemplate.queryForObject(
+                "SELECT is_active FROM system_admin WHERE id = ?",
+                Boolean.class,
+                workerId
+        );
+        if (active == null || !active) {
+            throw new IllegalStateException("Cannot create incident: worker " + workerId + " is not active");
+        }
         String sql = "INSERT INTO incident_request " +
                 "(id, used_sources, incident_date, incident_description, importance, worker_id, status, close_date, solution, note) " +
                 "VALUES (?, ?, ?, ?, ?::importance_enum, ?, ?::status_enum, ?, ?, ?) RETURNING *";

@@ -7,9 +7,9 @@ import kg.eldik.incidentmanagement.payload.request.UpdateIncidentRequest;
 import java.util.UUID;
 
 public interface IncidentRequestService {
-    public Iterable<IncidentRequest> findAllIncidentRequests();
-    public IncidentRequest findIncidentRequestById(UUID id);
-    public IncidentRequest updateIncidentRequest(UpdateIncidentRequest updateRequest);
-    public IncidentRequest archiveIncident(UUID id);
-    public IncidentRequest createIncident(IncidentRequestCreate incidentRequestCreate);
+     Iterable<IncidentRequest> findAllIncidentRequests();
+     IncidentRequest findIncidentRequestById(UUID id);
+     IncidentRequest updateIncidentRequest(UpdateIncidentRequest updateRequest);
+     IncidentRequest archiveIncident(UUID id);
+     IncidentRequest createIncident(IncidentRequestCreate incidentRequestCreate);
 }
