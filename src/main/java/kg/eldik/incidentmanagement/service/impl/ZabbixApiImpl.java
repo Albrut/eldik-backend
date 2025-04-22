@@ -95,7 +95,7 @@ public class ZabbixApiImpl implements ZabbixApiService {
 
             ResponseEntity<String> response = restTemplate.postForEntity(
                     zabbixUrl, entity, String.class);
-
+            System.out.println(objectMapper.readTree(response.getBody()).toString());
             return objectMapper.readTree(response.getBody());
 
         } catch (JsonProcessingException e) {
