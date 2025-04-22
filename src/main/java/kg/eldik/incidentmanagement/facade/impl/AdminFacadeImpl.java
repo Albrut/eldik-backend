@@ -159,7 +159,7 @@ public class AdminFacadeImpl implements AdminFacade {
             return false;
         }
         JsonNode result = userInfo.get("result").get(0);
-        String role = result.get("role").asText();
-        return "ADMIN".equals(role);
+        String role = result.get("alias").asText();
+        return "admin".equals(role);
     }
 }
