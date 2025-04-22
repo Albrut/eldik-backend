@@ -60,6 +60,7 @@ public class AdminController {
         if (allAdminsList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
+        System.out.println();
         return ResponseEntity.ok(allAdminsList);
     }
 

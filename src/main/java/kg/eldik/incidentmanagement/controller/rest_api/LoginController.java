@@ -25,6 +25,7 @@ public class LoginController {
         if(authToken.isEmpty()){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+        System.out.println(authToken.get());
         return ResponseEntity.ok(authToken.get());
     }
 }
