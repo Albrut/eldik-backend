@@ -44,7 +44,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
 
         String token = request.getHeader("X-Auth-Token");
-        System.out.println(request.toString());
         if (token == null) {
             response.sendError(HttpStatus.UNAUTHORIZED.value(), "No token");
             return;
