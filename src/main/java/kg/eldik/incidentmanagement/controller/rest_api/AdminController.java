@@ -76,7 +76,10 @@ public class AdminController {
     @SecurityRequirement(name = "X-Auth-Token")
     @PatchMapping("/update/incident")
     public ResponseEntity<IncidentRequest> updateIncident(
-            @RequestBody @Valid IncidentRequestCreate updateDto) {
+            @RequestBody @Valid IncidentRequestCreate updateDto, @RequestHeader("X-Auth-Token") String token) {
+        if(!adminFacade.isAdmin()){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         return ResponseEntity.ok(
                 incidentRepository.updateIncidentRequestSQL(updateDto)
         );
@@ -84,19 +87,28 @@ public class AdminController {
 
     @SecurityRequirement(name = "X-Auth-Token")
     @PostMapping("/archive/incident")
-    public ResponseEntity<IncidentRequest> archiveIncident(@RequestParam UUID id) {
+    public ResponseEntity<IncidentRequest> archiveIncident(@RequestParam UUID id, @RequestHeader("X-Auth-Token") String token) {
+        if(!adminFacade.isAdmin()){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         return ResponseEntity.ok(incidentRepository.archiveIncidentRequestSQL(id));
     }
 
     @SecurityRequirement(name = "X-Auth-Token")
     @PostMapping("/create/incident")
-    public ResponseEntity<IncidentRequest> createIncident(@RequestBody IncidentRequestDTO incidentRequestDTO) {
+    public ResponseEntity<IncidentRequest> createIncident(@RequestBody IncidentRequestDTO incidentRequestDTO, @RequestHeader("X-Auth-Token") String token) {
+        if(!adminFacade.isAdmin()){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(createIncidentRepository.createIncidentRequestSQL(incidentRequestDTO));
     }
 
     @SecurityRequirement(name = "X-Auth-Token")
     @PostMapping("/create/system_admin")
-    public ResponseEntity<String> createSystemAdmin(@RequestBody SystemAdminCreate systemAdminCreate) {
+    public ResponseEntity<String> createSystemAdmin(@RequestBody SystemAdminCreate systemAdminCreate, @RequestHeader("X-Auth-Token") String token) {
+        if(!adminFacade.isAdmin()){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
        if (systemAdminService.createSystemAdmin(systemAdminCreate).isEmpty()){
            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exist");
        }else {
@@ -106,7 +118,10 @@ public class AdminController {
 
     @SecurityRequirement(name = "X-Auth-Token")
     @PatchMapping("/update/system_admin")
-    public ResponseEntity<Boolean> updateSystemAdmin(@RequestBody SystemAdmin systemAdminCreate) {
+    public ResponseEntity<Boolean> updateSystemAdmin(@RequestBody SystemAdmin systemAdminCreate, @RequestHeader("X-Auth-Token") String token) {
+        if(!adminFacade.isAdmin()){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         return ResponseEntity.ok(systemAdminService.updateSystemAdmin(systemAdminCreate));
     }
 
