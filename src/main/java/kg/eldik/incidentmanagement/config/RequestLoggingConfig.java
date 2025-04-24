@@ -10,11 +10,11 @@ public class RequestLoggingConfig {
     @Bean
     public CommonsRequestLoggingFilter logFilter() {
         CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
-        filter.setIncludeClientInfo(true);      // IP, сессия
-        filter.setIncludeQueryString(true);     // параметры ?a=1&b=2
-        filter.setIncludePayload(true);         // тело запроса (до maxPayloadLength)
-        filter.setIncludeHeaders(true);         // все заголовки
-        filter.setMaxPayloadLength(10000);      // не захватывать слишком большие тела
+        filter.setIncludeClientInfo(true);
+        filter.setIncludeQueryString(true);
+        filter.setIncludePayload(true);
+        filter.setIncludeHeaders(true);
+        filter.setMaxPayloadLength(10000);
         return filter;
     }
 }

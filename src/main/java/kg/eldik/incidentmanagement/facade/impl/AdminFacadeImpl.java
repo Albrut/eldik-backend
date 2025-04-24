@@ -125,9 +125,9 @@ public class AdminFacadeImpl implements AdminFacade {
     private ImportanceEnum mapImportance(String prio) {
         return switch (prio) {
             case "Низкий" -> ImportanceEnum.low;
-            case "Средний" -> ImportanceEnum.middle;
+            case "Средний" -> ImportanceEnum.medium;
             case "Высокий" -> ImportanceEnum.high;
-            default -> ImportanceEnum.middle;
+            default -> ImportanceEnum.medium;
         };
     }
 
