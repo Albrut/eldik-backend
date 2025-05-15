@@ -15,7 +15,6 @@ import java.util.UUID;
 @Repository
 public class SystemAdminRepositoryImpl implements SystemAdminRepository {
     private final JdbcTemplate jdbcTemplate;
-
     private static final String SQL_QUERY_CHECK_EXIST_USER =
             "SELECT EXISTS(SELECT 1 FROM system_admin WHERE username = ?)";
     private static final String SQL_QUERY_TO_CREATE_ADMIN =
